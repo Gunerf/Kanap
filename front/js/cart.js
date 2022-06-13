@@ -79,7 +79,7 @@ const btnEnvoieFormulaire = document.querySelector("#order")
 btnEnvoieFormulaire.addEventListener("click", (e)=>{
     e.preventDefault
 
-    //formdata
+    //Mdn formdata 
     
     const contact = {
         prenom: document.querySelector("#firstName").value,
