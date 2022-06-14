@@ -79,7 +79,7 @@ const btnEnvoieFormulaire = document.querySelector("#order")
 btnEnvoieFormulaire.addEventListener("click", (e)=>{
     e.preventDefault
 
-    //Mdn formdata 
+    //Mdn formdata
     
     const contact = {
         prenom: document.querySelector("#firstName").value,
@@ -93,7 +93,7 @@ btnEnvoieFormulaire.addEventListener("click", (e)=>{
         produitStorage,
         contact
     }
-    console.log(valeursFormulaire)
+    console.log(valeursFormulaire) 
 
     let form = new FormData(document.getElementById("#orderForm")) 
     console.log(form)
