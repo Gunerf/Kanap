@@ -74,31 +74,31 @@
               <p>Total (<span id="totalQuantity"><!-- 2 --></span> articles) : <span id="totalPrice"><!-- 84,00 --></span> €</p>
             </div>
             <div class="cart__order">
-              <form method="post" class="cart__order__form" id="orderForm">
+              <form method="get" class="cart__order__form" id="orderForm">
                 <div class="cart__order__form__question">
                   <label for="firstName">Prénom: </label>
                   <input type="text" name="firstName" id="firstName" required>
-                  <p id="firstNameErrorMsg"><!-- ci est un message d'erreur --></p>
+                  <p id="firstNameErrorMsg"><!--Veuillez saisir un prénom--></p>
                 </div>
                 <div class="cart__order__form__question">
                   <label for="lastName">Nom: </label>
                   <input type="text" name="lastName" id="lastName" required>
-                  <p id="lastNameErrorMsg"></p>
+                  <p id="lastNameErrorMsg"><!--Veuillez saisir un nom de famille--></p>
                 </div>
                 <div class="cart__order__form__question">
                   <label for="address">Adresse: </label>
                   <input type="text" name="address" id="address" required>
-                  <p id="addressErrorMsg"></p>
+                  <p id="addressErrorMsg"><!--Veuillez saisir une adresse--></p>
                 </div>
                 <div class="cart__order__form__question">
                   <label for="city">Ville: </label>
                   <input type="text" name="city" id="city" required>
-                  <p id="cityErrorMsg"></p>
+                  <p id="cityErrorMsg"><!--Veuillez saisir une ville--></p>
                 </div>
                 <div class="cart__order__form__question">
                   <label for="email">Email: </label>
                   <input type="email" name="email" id="email" required>
-                  <p id="emailErrorMsg"></p>
+                  <p id="emailErrorMsg"><!--Veuillez saisir un email--></p>
                 </div>
                 <div class="cart__order__form__submit">
                   <input type="submit" value="Commander !" id="order">

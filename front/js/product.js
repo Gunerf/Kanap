@@ -53,7 +53,7 @@ fetch('http://localhost:3000/api/products/'+id)
         }
     }
     
-//Ajout / tri d'un produit au panier
+//------------------------------------Ajout / tri d'un produit au panier------------------------------>
 
     if(produitPanier){ 
         let productIndex = produitPanier.findIndex(product => product.idDuProduit == data._id && product.couleurProduit === productColor.value)
