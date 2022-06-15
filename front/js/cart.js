@@ -16,8 +16,8 @@ for(let i = 0; i < produitStorage.length; i++){
                                     </div>
                                     <div class="cart__item__content__settings">
                                         <div class="cart__item__content__settings__quantity">
-                                        <p>Qté : "${produitStorage[i].nombreDeProduits}"</p>
-                                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${produitStorage[i].nombreDeProduits}">
+                                        <p>Qté :</p>
+                                        <input type="number" id="numberCart"class="itemQuantity" name="itemQuantity" min="1" max="100" value="${produitStorage[i].nombreDeProduits}">
                                         </div>
                                         <div class="cart__item__content__settings__delete">
                                         <p class="deleteItem">Supprimer</p>
@@ -74,14 +74,18 @@ allPrice.innerHTML = prixTotal
 let allQuantity = document.querySelector("#totalQuantity")
 allQuantity.innerHTML = totalQuantity
 
+//--------------------------------Fleches plus et moins------------------------------------->
+
+valeurFleche = document.getElementById('numberCart')
+console.log(valeurFleche.value)
+
+
 
 //------------------------------------FORMULAIRE------------------------------------------>
 
 const btnEnvoieFormulaire = document.querySelector("#order")
 btnEnvoieFormulaire.addEventListener("click", (e)=>{
     e.preventDefault
-
- //Mdn formdata
     
     const contact = {
         prenom: document.querySelector("#firstName").value,
@@ -91,36 +95,37 @@ btnEnvoieFormulaire.addEventListener("click", (e)=>{
         email: document.querySelector("#email").value,
     }
     
-    const valeursFormulaire = {
-        produitStorage,
-        contact
-    }
+    //const valeursFormulaire = {
+        //produitStorage,
+        //contact
+    //}
+
+//------------------------Mdn formdata-------------------------------
 
     const form = document.getElementById('#orderForm')
     const formData = new FormData(form)
 
     console.log(formData)
-    console.log(valeursFormulaire)
-})
-
+    console.log(contact)
 //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
 
 //Controle du prenom
-function prenomControle() {
+    function prenomControle() {
 
-    const lePrenom = contact.prenom
-    if(/^[a-zA-Z]$/(lePrenom)){
-        return true
+        const lePrenom = contact.prenom
+        if(/^[A-Za-z]$/.test(lePrenom)){
+            return true
+        }
+        else{
+            alert ("Chiffre et symbole ne sont pas autorisé")
+            return false
+        }
+    }
+    if(prenomControle()){
+        localStorage.setItem("contact", JSON.stringify(valeursFormulaire))
     }
     else{
-        alert ("Chiffre et symbole ne sont pas autorisé")
-        return false
+        alert ("Veuillez bien remplir le formulaire")
     }
-}
-if(prenomControle()){
-    localStorage.setItem("contact", JSON.stringify(valeursFormulaire))
-}
-else{
-    alert ("Veuillez bien remplir le formulaire")
-}
+})
 
