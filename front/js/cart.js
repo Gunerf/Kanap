@@ -17,7 +17,7 @@ for(let i = 0; i < produitStorage.length; i++){
                                     <div class="cart__item__content__settings">
                                         <div class="cart__item__content__settings__quantity">
                                         <p>Qté :</p>
-                                        <input type="number" id="numberCart"class="itemQuantity" name="itemQuantity" min="1" max="100" value="${produitStorage[i].nombreDeProduits}">
+                                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" onchange="updateQuantity(event)" value="${produitStorage[i].nombreDeProduits}" data-id="${produitStorage[i].idDuProduit}" data-color="${produitStorage[i].couleurProduit}">
                                         </div>
                                         <div class="cart__item__content__settings__delete">
                                         <p class="deleteItem">Supprimer</p>
@@ -76,17 +76,30 @@ allQuantity.innerHTML = totalQuantity
 
 //--------------------------------Fleches plus et moins------------------------------------->
 
-valeurFleche = document.getElementById('numberCart')
-console.log(valeurFleche.value)
+//valeurFleche = document.querySelector('itemQuantity')
+//valeurFleche.addEventListener('change', (e)=>{
+    //console.log(e.target.value)
+//})
 
-
-
+for(let y = 0; y < produitStorage.length; y++){
+console.log(produitStorage[y].nombreDeProduits)
+function updateQuantity(event){  
+    console.log(event.target.dataset.id)
+    console.log(event.target.dataset.color)
+    console.log(event.target.value)
+    let nombreProduitStorage = produitStorage[y].nombreDeProduits  
+    let calculeNombre = nombreProduitStorage = event.target.value
+    console.log(calculeNombre)        
+}
+}
 //------------------------------------FORMULAIRE------------------------------------------>
 
-const btnEnvoieFormulaire = document.querySelector("#order")
+
+const btnEnvoieFormulaire = document.getElementById('order')
 btnEnvoieFormulaire.addEventListener("click", (e)=>{
-    e.preventDefault
-    
+    e.preventDefault()
+//-----------------------CODE PRECEDENT------------------------
+
     const contact = {
         prenom: document.querySelector("#firstName").value,
         nom: document.querySelector("#lastName").value,
@@ -94,25 +107,25 @@ btnEnvoieFormulaire.addEventListener("click", (e)=>{
         ville: document.querySelector("#city").value,
         email: document.querySelector("#email").value,
     }
+    const valeursFormulaire = {
+       produit: produitStorage,
+       utilisateur: contact,
+    }
     
-    //const valeursFormulaire = {
-        //produitStorage,
-        //contact
-    //}
+//------------------------NOUVEAU CODE (formdata)-------------------------------
+    //const form = document.getElementById('orderForm')
+    //const formData = new FormData(form)
+    //console.log(formData.values())
 
-//------------------------Mdn formdata-------------------------------
-
-    const form = document.getElementById('#orderForm')
-    const formData = new FormData(form)
-
-    console.log(formData)
-    console.log(contact)
+    //let firstName = document.getElementById('firstName').value
+    //console.log(firstName)
 //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
 
 //Controle du prenom
     function prenomControle() {
 
         const lePrenom = contact.prenom
+        console.log(lePrenom)
         if(/^[A-Za-z]$/.test(lePrenom)){
             return true
         }
@@ -121,11 +134,12 @@ btnEnvoieFormulaire.addEventListener("click", (e)=>{
             return false
         }
     }
-    if(prenomControle()){
-        localStorage.setItem("contact", JSON.stringify(valeursFormulaire))
-    }
-    else{
-        alert ("Veuillez bien remplir le formulaire")
-    }
+        if(prenomControle()){
+            localStorage.setItem('contact', (valeursFormulaire))
+        }
+        else{
+            alert ("Veuillez bien remplir le formulaire")
+        }
 })
+
 
