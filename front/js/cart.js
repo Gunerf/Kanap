@@ -36,12 +36,12 @@ let creationBtnsuppr = document.createElement('div');
                                     </div>`
 let btnSupprimer = document.querySelectorAll(".deleteItem")
 
-for(let a = 0; a < btnSupprimer.length; a++){
-    btnSupprimer[a].addEventListener("click" , (event) =>{
+for(let i = 0; i < btnSupprimer.length; i++){
+    btnSupprimer[i].addEventListener("click" , (event) =>{
         event.preventDefault();    
 
-        let supressionProduit = produitStorage[a].couleurProduit;
-        filterProduct = produitStorage.filter(product => product.couleurProduit !== supressionProduit)       
+        let supressionProduit = produitStorage[i].couleurProduit;
+        filterProduct = produitStorage.filter(product => product.couleurProduit !== supressionProduit && product.idDuProduit == produitStorage[i].idDuProduit)       
 
         localStorage.setItem("produit", JSON.stringify(filterProduct));
 
@@ -81,17 +81,22 @@ allQuantity.innerHTML = totalQuantity
     //console.log(e.target.value)
 //})
 
-for(let y = 0; y < produitStorage.length; y++){
-console.log(produitStorage[y].nombreDeProduits)
+
+
+
 function updateQuantity(event){  
     console.log(event.target.dataset.id)
     console.log(event.target.dataset.color)
     console.log(event.target.value)
-    let nombreProduitStorage = produitStorage[y].nombreDeProduits  
-    let calculeNombre = nombreProduitStorage = event.target.value
-    console.log(calculeNombre)        
+    let product = produitStorage.find(produit => produit.idDuProduit == event.target.dataset.id && produit.couleurProduit == event.target.dataset.color)
+    console.log(product)      
+    product.nombreDeProduits = event.target.value
+    //supprimer le produit si quantite = 0
+    //mettre a jour dans le local storage
+    //mettre a jour le prix 
+
 }
-}
+
 //------------------------------------FORMULAIRE------------------------------------------>
 
 
@@ -112,34 +117,28 @@ btnEnvoieFormulaire.addEventListener("click", (e)=>{
        utilisateur: contact,
     }
     
-//------------------------NOUVEAU CODE (formdata)-------------------------------
-    //const form = document.getElementById('orderForm')
-    //const formData = new FormData(form)
-    //console.log(formData.values())
 
-    //let firstName = document.getElementById('firstName').value
-    //console.log(firstName)
 //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
 
 //Controle du prenom
-    function prenomControle() {
-
-        const lePrenom = contact.prenom
-        console.log(lePrenom)
-        if(/^[A-Za-z]$/.test(lePrenom)){
-            return true
-        }
-        else{
-            alert ("Chiffre et symbole ne sont pas autorisé")
-            return false
-        }
+    
+    if(prenomControle(contact.prenom)){
+        localStorage.setItem('contact', (valeursFormulaire))
     }
-        if(prenomControle()){
-            localStorage.setItem('contact', (valeursFormulaire))
-        }
-        else{
-            alert ("Veuillez bien remplir le formulaire")
-        }
+    else{
+        document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+    }
 })
 
+
+function prenomControle(prenom) {
+
+    if(/^[A-Za-z]$/.test(prenom)){
+        return true
+    }
+    else{
+        alert ("Chiffre et symbole ne sont pas autorisé")
+        return false
+    }
+}
 
