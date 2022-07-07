@@ -2,7 +2,7 @@ let produitStorage = JSON.parse(localStorage.getItem("produit"));
 
 
 let visuelProduitPanier = document.querySelector("#cart__items")
-for(let i = 0; i < produitStorage.length; i++){
+for (let i = 0; i < produitStorage.length; i++) {
     let visuelProduitPanier = document.createElement('div');
     visuelProduitPanier.innerHTML = `<article class="cart__item" data-id="${produitStorage[i].idDuProduit}" data-color="${produitStorage[i].couleurProduit}">
                                     <div class="cart__item__img">
@@ -25,23 +25,23 @@ for(let i = 0; i < produitStorage.length; i++){
                                     </div>
                                     </div>
                                     </article>`
-    document.querySelector('#cart__items').appendChild(visuelProduitPanier)   
+    document.querySelector('#cart__items').appendChild(visuelProduitPanier)
 }
 
 //------------------------------------------Supression de produit dans le panier----------------------------------------->
 
 let creationBtnsuppr = document.createElement('div');
-    creationBtnsuppr.innerHTML = `<div class="cart__item__content__settings__delete">
+creationBtnsuppr.innerHTML = `<div class="cart__item__content__settings__delete">
                                     <p class="deleteItem">Supprimer</p>
                                     </div>`
 let btnSupprimer = document.querySelectorAll(".deleteItem")
 
-for(let i = 0; i < btnSupprimer.length; i++){
-    btnSupprimer[i].addEventListener("click" , (event) =>{
-        event.preventDefault();    
+for (let i = 0; i < btnSupprimer.length; i++) {
+    btnSupprimer[i].addEventListener("click", (event) => {
+        event.preventDefault();
 
         let supressionProduit = produitStorage[i].couleurProduit;
-        filterProduct = produitStorage.filter(product => product.couleurProduit !== supressionProduit && product.idDuProduit == produitStorage[i].idDuProduit)       
+        filterProduct = produitStorage.filter(product => product.couleurProduit !== supressionProduit && product.idDuProduit == produitStorage[i].idDuProduit)
 
         localStorage.setItem("produit", JSON.stringify(filterProduct));
 
@@ -54,11 +54,11 @@ for(let i = 0; i < btnSupprimer.length; i++){
 
 let calculPrixTotal = []
 let totalQuantity = 0
-for(let b = 0; b < produitStorage.length; b++){
+for (let b = 0; b < produitStorage.length; b++) {
     let ProduitEtQuantité = produitStorage[b].nombreDeProduits
     let prixProduitPanier = produitStorage[b].prixProduit
     let PrixEtQuantité = ProduitEtQuantité * prixProduitPanier
-    calculPrixTotal.push(PrixEtQuantité)    
+    calculPrixTotal.push(PrixEtQuantité)
     totalQuantity += parseInt(ProduitEtQuantité)
 }
 const reducer = (accumulator, currentValue) => accumulator + currentValue
@@ -78,18 +78,18 @@ allQuantity.innerHTML = totalQuantity
 
 //valeurFleche = document.querySelector('itemQuantity')
 //valeurFleche.addEventListener('change', (e)=>{
-    //console.log(e.target.value)
+//console.log(e.target.value)
 //})
 
 
 
 
-function updateQuantity(event){  
+function updateQuantity(event) {
     console.log(event.target.dataset.id)
     console.log(event.target.dataset.color)
     console.log(event.target.value)
     let product = produitStorage.find(produit => produit.idDuProduit == event.target.dataset.id && produit.couleurProduit == event.target.dataset.color)
-    console.log(product)      
+    console.log(product)
     product.nombreDeProduits = event.target.value
     //supprimer le produit si quantite = 0
     //mettre a jour dans le local storage
@@ -101,9 +101,9 @@ function updateQuantity(event){
 
 
 const btnEnvoieFormulaire = document.getElementById('order')
-btnEnvoieFormulaire.addEventListener("click", (e)=>{
+btnEnvoieFormulaire.addEventListener("click", (e) => {
     e.preventDefault()
-//-----------------------CODE PRECEDENT------------------------
+    //-----------------------CODE PRECEDENT------------------------
 
     const contact = {
         prenom: document.querySelector("#firstName").value,
@@ -113,32 +113,78 @@ btnEnvoieFormulaire.addEventListener("click", (e)=>{
         email: document.querySelector("#email").value,
     }
     const valeursFormulaire = {
-       produit: produitStorage,
-       utilisateur: contact,
+        produit: produitStorage,
+        utilisateur: contact,
     }
-    
 
-//-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
 
-//Controle du prenom
-    
-    if(prenomControle(contact.prenom)){
+    //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
+
+    //Controle du texte
+
+    if (prenomControle(contact.prenom)) {
         localStorage.setItem('contact', (valeursFormulaire))
     }
-    else{
+    else {
         document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+    }
+    if (prenomControle(contact.nom)) {
+        localStorage.setItem('contact', (valeursFormulaire))
+    }
+    else {
+        document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
     }
 })
 
 
 function prenomControle(prenom) {
 
-    if(/^[A-Za-z]$/.test(prenom)){
+    if (/^[A-Za-z]$/.test(prenom)) {
         return true
     }
-    else{
-        alert ("Chiffre et symbole ne sont pas autorisé")
+    else {
+        alert("Chiffre et symbole ne sont pas autorisé")
         return false
     }
 }
 
+const regExNom = (value) => {
+    return /^[A-Za-z]$/.test(value)
+}
+
+
+
+//Controle de l'email
+
+const regExEmail = (value) => {
+    return /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(value)
+}
+
+function emailControle() {
+    const leEmail = valeursFormulaire.email
+    if (regExEmail(leEmail)) {
+        return true
+    }
+    else {
+        alert("L'email n'est pas valide")
+        return false
+    }
+}
+
+//Controle de l'adresse 
+
+const regExAdresse = (value) => {
+    return /^[A-Za-z0-9]$/.test(value) 
+
+}
+
+function adresseControle() {
+    const leAdresse = valeursFormulaire.adresse
+    if (regExEmail(leAdresse)) {
+        return true
+    }
+    else {
+        alert("L'adresse doit contenir que des lettres et des chiffres")
+        return false
+    }
+}
