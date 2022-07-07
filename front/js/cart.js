@@ -116,19 +116,21 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         produit: produitStorage,
         utilisateur: contact,
     }
+    console.log(contact)
+    console.log(valeursFormulaire)
 
 
     //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
 
     //Controle du texte
 
-    if (prenomControle(contact.prenom)) {
+    if (prenomControle()) {
         localStorage.setItem('contact', (valeursFormulaire))
     }
     else {
         document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
     }
-    if (prenomControle(contact.nom)) {
+    if (nomControle()) {
         localStorage.setItem('contact', (valeursFormulaire))
     }
     else {
@@ -136,20 +138,38 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
     }
 })
 
+//Controle du prenom
 
-function prenomControle(prenom) {
+const regExPrenom = (value) => {
+    return /^[A-Za-z]$/.test(value)
+}
 
-    if (/^[A-Za-z]$/.test(prenom)) {
+function prenomControle() {
+    const lePrenom = valeursFormulaire.prenom
+    if (regExPrenom(lePrenom)) {
         return true
     }
     else {
-        alert("Chiffre et symbole ne sont pas autorisé")
+        alert("Le prenom n'est pas valide")
         return false
     }
 }
 
+//Controle du nom
+
 const regExNom = (value) => {
     return /^[A-Za-z]$/.test(value)
+}
+
+function nomControle() {
+    const leNom = valeursFormulaire.nom
+    if (regExNom(leNom)) {
+        return true
+    }
+    else {
+        alert("Le nom n'est pas valide")
+        return false
+    }
 }
 
 
