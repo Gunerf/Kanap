@@ -141,7 +141,7 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
 //Controle du prenom
 
 const regExPrenom = (value) => {
-    return /^[A-Za-z]$/.test(value)
+    return /^[A-Z][A-Za-z\é\è\ê\-]+$/.test(value)
 }
 
 function prenomControle() {
@@ -158,7 +158,7 @@ function prenomControle() {
 //Controle du nom
 
 const regExNom = (value) => {
-    return /^[A-Za-z]$/.test(value)
+    return /^[A-Z][A-Za-z\é\è\ê\-]+$/.test(value)
 }
 
 function nomControle() {
@@ -194,7 +194,7 @@ function emailControle() {
 //Controle de l'adresse 
 
 const regExAdresse = (value) => {
-    return /^[A-Za-z0-9]$/.test(value) 
+    return /^[A-Za-z0-9]$/.test(value)
 
 }
 
