@@ -52,10 +52,27 @@ fetch('http://localhost:3000/api/products/'+id)
             window.location.href = "index.html";
         }
     }
+    const popupError = () =>{
+        if(productColor.value.length === 0 && quantity.value == 0){
+            alert("Veuillez sélectionner une couleur et une quantité")
+        }
+        else{
+            if(productColor.value.length === 0){
+                alert("Veuillez sélectionner une couleur")
+            }
+            else{
+                alert("Veuillez sélectionner un nombre de canapé")
+            }
+        }
+    }
     
 //------------------------------------Ajout / tri d'un produit au panier------------------------------>
 
-    if(produitPanier){ 
+    if(productColor.value.length === 0 || quantity.value == 0){
+        popupError()
+    }
+    else{
+        if(produitPanier){ 
         let productIndex = produitPanier.findIndex(product => product.idDuProduit == data._id && product.couleurProduit === productColor.value)
         if(produitPanier[productIndex]){
             if(produitPanier[productIndex].couleurProduit === productColor.value){
@@ -70,13 +87,15 @@ fetch('http://localhost:3000/api/products/'+id)
         }       
         localStorage.setItem("produit", JSON.stringify(produitPanier));
         popupConfirmation()
+        }
+        else {
+            produitPanier = [];
+            produitPanier.push(optionProduit);
+            localStorage.setItem("produit", JSON.stringify(produitPanier));
+            popupConfirmation()
+        }
     }
-    else {
-        produitPanier = [];
-        produitPanier.push(optionProduit);
-        localStorage.setItem("produit", JSON.stringify(produitPanier));
-        popupConfirmation()
-    }
+    
     })
     }))
    
