@@ -40,8 +40,7 @@ for (let i = 0; i < btnSupprimer.length; i++) {
     btnSupprimer[i].addEventListener("click", (event) => {
         event.preventDefault();
 
-        let supressionProduit = produitStorage[i].couleurProduit;
-        filterProduct = produitStorage.filter(product => product.couleurProduit !== supressionProduit && product.idDuProduit == produitStorage[i].idDuProduit)
+        filterProduct = produitStorage.filter(product => product.couleurProduit !== produitStorage[i].couleurProduit || product.idDuProduit !== produitStorage[i].idDuProduit)
 
         localStorage.setItem("produit", JSON.stringify(filterProduct));
 
