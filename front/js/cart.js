@@ -44,7 +44,7 @@ for (let i = 0; i < btnSupprimer.length; i++) {
         
         console.log(JSON.stringify(filterProduct))
         alert("Ce produit à bien été supprimer du panier")
-        window.location.href = "cart.html";
+        location.reload()
     })
 }
 
