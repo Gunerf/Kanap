@@ -28,7 +28,7 @@ for (let i = 0; i < produitStorage.length; i++) {
     document.querySelector('#cart__items').appendChild(visuelProduitPanier)
 }
 
-//------------------------------------------Supression de produit dans le panier----------------------------------------->
+//--Supression d'un produit dans le panier-->
 
 let creationBtnsuppr = document.createElement('div');
 creationBtnsuppr.innerHTML = `<div class="cart__item__content__settings__delete">
