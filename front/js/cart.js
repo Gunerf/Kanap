@@ -28,7 +28,7 @@ for (let i = 0; i < produitStorage.length; i++) {
     document.querySelector('#cart__items').appendChild(visuelProduitPanier)
 }
 
-//------------------------------------------Supression de produit dans le panier----------------------------------------->
+//--Supression d'un produit dans le panier-->
 
 let creationBtnsuppr = document.createElement('div');
 creationBtnsuppr.innerHTML = `<div class="cart__item__content__settings__delete">
@@ -39,12 +39,10 @@ let btnSupprimer = document.querySelectorAll(".deleteItem")
 for (let i = 0; i < btnSupprimer.length; i++) {
     btnSupprimer[i].addEventListener("click", (event) => {
         event.preventDefault();
-
-        let supressionProduit = produitStorage[i].couleurProduit;
-        filterProduct = produitStorage.filter(product => product.couleurProduit !== supressionProduit && product.idDuProduit == produitStorage[i].idDuProduit)
-
-        localStorage.setItem("produit", JSON.stringify(filterProduct));
-
+        
+        filterProduct = produitStorage.filter(product => product.idDuProduit !== produitStorage[i].idDuProduit || product.couleurProduit !== produitStorage[i].couleurProduit)
+        
+        console.log(JSON.stringify(filterProduct))
         alert("Ce produit à bien été supprimer du panier")
         window.location.href = "cart.html";
     })
