@@ -53,22 +53,22 @@ fetch('http://localhost:3000/api/products/'+id)
         }
     }
     const popupError = () =>{
-        if(productColor.value.length === 0 && quantity.value == 0){
-            alert("Veuillez sélectionner une couleur et une quantité")
+        if(productColor.value.length === 0 && (quantity.value < 1 || quantity.value > 100)){
+            alert("Veuillez sélectionner une couleur et une quantité entre 1 et 100")
         }
         else{
             if(productColor.value.length === 0){
                 alert("Veuillez sélectionner une couleur")
             }
             else{
-                alert("Veuillez sélectionner un nombre de canapé")
+                alert("Veuillez sélectionner une quantité entre 1 et 100")
             }
         }
     }
     
 //------------------------------------Ajout / tri d'un produit au panier------------------------------>
 
-    if(productColor.value.length === 0 || quantity.value == 0){
+    if(productColor.value.length === 0 || (quantity.value < 1 || quantity.value > 100)){
         popupError()
     }
     else{
