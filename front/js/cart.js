@@ -138,15 +138,21 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
 
     if (prenomControle(contact)) {
         localStorage.setItem('contact', (valeursFormulaire))
+        document.getElementById('firstNameErrorMsg').textContent = "Champ Correct"
+        document.getElementById('firstNameErrorMsg').style.color = "white"
     }
     else {
         document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+        document.getElementById('firstNameErrorMsg').style.color = "darkred"
     }
     if (nomControle(contact)) {
         localStorage.setItem('contact', (valeursFormulaire))
+        document.getElementById('lastNameErrorMsg').textContent = "Champ Correct"
+        document.getElementById('lastNameErrorMsg').style.color = "white"
     }
     else {
         document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+        document.getElementById('lastNameErrorMsg').style.color = "darkred"
     }
 })
 
@@ -183,8 +189,6 @@ function nomControle(formData) {
         return false
     }
 }
-
-
 
 //Controle de l'email
 
