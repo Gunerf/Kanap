@@ -2,6 +2,7 @@ let produitStorage = JSON.parse(localStorage.getItem("produit"));
 
 
 let visuelProduitPanier = document.querySelector("#cart__items")
+
 for (let i = 0; i < produitStorage.length; i++) {
     let visuelProduitPanier = document.createElement('div');
     visuelProduitPanier.innerHTML = `<article class="cart__item" data-id="${produitStorage[i].idDuProduit}" data-color="${produitStorage[i].couleurProduit}">
@@ -115,6 +116,7 @@ function updateQuantity(event) {
 const btnEnvoieFormulaire = document.getElementById('order')
 btnEnvoieFormulaire.addEventListener("click", (e) => {
     e.preventDefault()
+
     //-----------------------CODE PRECEDENT------------------------
 
     const contact = {
