@@ -48,7 +48,6 @@ for (let i = 0; i < btnSupprimer.length; i++) {
         location.reload()
     })
 }
-
 //---------------------------------Addition du prix de tous les articles----------------------------------------->
 
 let calculPrixTotal = []
@@ -75,25 +74,39 @@ allQuantity.innerHTML = totalQuantity
 
 //--------------------------------Fleches plus et moins------------------------------------->
 
-//valeurFleche = document.querySelector('itemQuantity')
-//valeurFleche.addEventListener('change', (e)=>{
-//console.log(e.target.value)
-//})
-
-
-
 
 function updateQuantity(event) {
     console.log(event.target.dataset.id)
     console.log(event.target.dataset.color)
     console.log(event.target.value)
     let product = produitStorage.find(produit => produit.idDuProduit == event.target.dataset.id && produit.couleurProduit == event.target.dataset.color)
-    console.log(product)
+    console.log(product.prixProduit)
+    console.log(event.target.value * product.prixProduit)
     product.nombreDeProduits = event.target.value
-    //supprimer le produit si quantite = 0
-    //mettre a jour dans le local storage
-    //mettre a jour le prix 
 
+    let calculPrixTotal = []
+    let totalQuantity = 0
+    for (let b = 0; b < produitStorage.length; b++) {
+        let ProduitEtQuantité = produitStorage[b].nombreDeProduits
+        let prixProduitPanier = produitStorage[b].prixProduit
+        let PrixEtQuantité = ProduitEtQuantité * prixProduitPanier
+        calculPrixTotal.push(PrixEtQuantité)
+        totalQuantity += parseInt(ProduitEtQuantité)
+    }
+    const reducer = (accumulator, currentValue) => accumulator + currentValue
+    const prixTotal = calculPrixTotal.reduce(reducer)
+
+    //Affichage du prix de tous les articles
+
+    let allPrice = document.querySelector("#totalPrice")
+    allPrice.innerHTML = prixTotal
+
+    //Affichage quantité de produit
+
+    let allQuantity = document.querySelector("#totalQuantity")
+    allQuantity.innerHTML = totalQuantity
+    console.log(product)
+    localStorage.setItem("produit", JSON.stringify(produitStorage));
 }
 
 //------------------------------------FORMULAIRE------------------------------------------>
