@@ -25,7 +25,9 @@ fetch('http://localhost:3000/api/products/'+id)
         colorOption.value = data.colors[i]
         productColor.appendChild(colorOption)
     }
-    
+
+    // ------------------Ajout d'un item dans le panier
+
     const addToCart = document.querySelector("#addToCart")
 
     addToCart.addEventListener("click", (event) =>{
@@ -41,7 +43,7 @@ fetch('http://localhost:3000/api/products/'+id)
         nombreDeProduits: quantity.value,
     }
 
-    let produitPanier = JSON.parse(localStorage.getItem("produit"));
+    // ------------------Création popup erreur et ajout panier
 
     const popupConfirmation = () =>{
         if(window.confirm(`${data.name} option: ${productColor.value} a bien été ajouté au panier
@@ -67,6 +69,8 @@ fetch('http://localhost:3000/api/products/'+id)
     }
     
 //------------------------------------Ajout / tri d'un produit au panier------------------------------>
+
+    let produitPanier = JSON.parse(localStorage.getItem("produit"));
 
     if(productColor.value.length === 0 || (quantity.value < 1 || quantity.value > 100)){
         popupError()
