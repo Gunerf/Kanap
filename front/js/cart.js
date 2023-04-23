@@ -111,11 +111,9 @@ function updateQuantity(event) {
 
 //------------------------------------FORMULAIRE------------------------------------------>
 
-
 const btnEnvoieFormulaire = document.getElementById('order')
 btnEnvoieFormulaire.addEventListener("click", (e) => {
     e.preventDefault()
-    //-----------------------CODE PRECEDENT------------------------
 
     const contact = {
         prenom: document.querySelector("#firstName").value,
@@ -128,60 +126,74 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         produit: produitStorage,
         utilisateur: contact,
     }
-    console.log(contact)
-    console.log(valeursFormulaire)
+
+    //generates random id
+
+    let s4 = () => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+
+    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+
+    let id = (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4())
+    console.log(id)
+
+
+
 
 
     //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
 
     //Controle du texte
 
-    if (prenomControle(contact)) {
-        localStorage.setItem('contact', (valeursFormulaire))
-        document.getElementById('firstNameErrorMsg').textContent = "Champ Correct"
-        document.getElementById('firstNameErrorMsg').style.color = "white"
-    }
-    else {
-        document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
-        document.getElementById('firstNameErrorMsg').style.color = "darkred"
-    }
-    if (nomControle(contact)) {
-        localStorage.setItem('contact', (valeursFormulaire))
-        document.getElementById('lastNameErrorMsg').textContent = "Champ Correct"
-        document.getElementById('lastNameErrorMsg').style.color = "white"
-    }
-    else {
-        document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
-        document.getElementById('lastNameErrorMsg').style.color = "darkred"
-    }
-    if (adresseControle(contact)) {
-        localStorage.setItem('contact', (valeursFormulaire))
-        document.getElementById('addressErrorMsg').textContent = "Champ Correct"
-        document.getElementById('addressErrorMsg').style.color = "white"
-    }
-    else {
-        document.getElementById('addressErrorMsg').textContent = "Veuillez bien remplir ce champ"
-        document.getElementById('addressErrorMsg').style.color = "darkred"
-    }
-    if (villeControle(contact)) {
-        localStorage.setItem('contact', (valeursFormulaire))
-        document.getElementById('cityErrorMsg').textContent = "Champ Correct"
-        document.getElementById('cityErrorMsg').style.color = "white"
-    }
-    else {
-        document.getElementById('cityErrorMsg').textContent = "Veuillez bien remplir ce champ"
-        document.getElementById('cityErrorMsg').style.color = "darkred"
-    }
-    if (emailControle(contact)) {
-        localStorage.setItem('contact', (valeursFormulaire))
-        document.getElementById('emailErrorMsg').textContent = "Champ Correct"
-        document.getElementById('emailErrorMsg').style.color = "white"
-    }
-    else {
-        document.getElementById('emailErrorMsg').textContent = "Veuillez bien remplir ce champ"
-        document.getElementById('emailErrorMsg').style.color = "darkred"
-    }
-})
+        if (prenomControle(contact)) {
+            localStorage.setItem('contact', JSON.stringify(contact))
+            document.getElementById('firstNameErrorMsg').textContent = "Champ Correct"
+            document.getElementById('firstNameErrorMsg').style.color = "white"
+        }
+        else {
+            document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('firstNameErrorMsg').style.color = "darkred"
+        }
+        if (nomControle(contact)) {
+            localStorage.setItem('contact', JSON.stringify(contact))
+            document.getElementById('lastNameErrorMsg').textContent = "Champ Correct"
+            document.getElementById('lastNameErrorMsg').style.color = "white"
+        }
+        else {
+            document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('lastNameErrorMsg').style.color = "darkred"
+        }
+        if (adresseControle(contact)) {
+            localStorage.setItem('contact', JSON.stringify(contact))
+            document.getElementById('addressErrorMsg').textContent = "Champ Correct"
+            document.getElementById('addressErrorMsg').style.color = "white"
+        }
+        else {
+            document.getElementById('addressErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('addressErrorMsg').style.color = "darkred"
+        }
+        if (villeControle(contact)) {
+            localStorage.setItem('contact', JSON.stringify(contact))
+            document.getElementById('cityErrorMsg').textContent = "Champ Correct"
+            document.getElementById('cityErrorMsg').style.color = "white"
+        }
+        else {
+            document.getElementById('cityErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('cityErrorMsg').style.color = "darkred"
+        }
+        if (emailControle(contact)) {
+            localStorage.setItem('contact', JSON.stringify(contact))
+            document.getElementById('emailErrorMsg').textContent = "Champ Correct"
+            document.getElementById('emailErrorMsg').style.color = "white"
+        }
+        else {
+            document.getElementById('emailErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('emailErrorMsg').style.color = "darkred"
+        }
+    })
 
 //Controle du prenom
 
