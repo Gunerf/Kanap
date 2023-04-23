@@ -78,16 +78,11 @@ fetch('http://localhost:3000/api/products/'+id)
     else{
         if(produitPanier){ 
         let productIndex = produitPanier.findIndex(product => product.idDuProduit == data._id && product.couleurProduit === productColor.value)
-        if(produitPanier[productIndex]){
-            if(produitPanier[productIndex].couleurProduit === productColor.value){
-                produitPanier[productIndex].nombreDeProduits = parseInt(produitPanier[productIndex].nombreDeProduits) + parseInt(quantity.value)
-            }
-            else{
-                produitPanier.push(optionProduit);
-            }
+        if(produitPanier[productIndex] && produitPanier[productIndex].couleurProduit === productColor.value){
+                produitPanier[productIndex].nombreDeProduits += quantity.value
         }
         else {
-        produitPanier.push(optionProduit); 
+            produitPanier.push(optionProduit); 
         }       
         localStorage.setItem("produit", JSON.stringify(produitPanier));
         popupConfirmation()
@@ -99,7 +94,6 @@ fetch('http://localhost:3000/api/products/'+id)
             popupConfirmation()
         }
     }
-    
     })
     }))
    
