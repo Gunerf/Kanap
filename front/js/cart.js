@@ -139,6 +139,9 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
 
     let id = (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4())
     console.log(id)
+    localStorage.setItem('idCommande', JSON.stringify(id))
+    alert("Votre commande a bien été enregistré")
+    window.location.href = "confirmation.html"
 
 
 
