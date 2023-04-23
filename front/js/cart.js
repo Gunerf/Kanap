@@ -154,6 +154,33 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
         document.getElementById('lastNameErrorMsg').style.color = "darkred"
     }
+    if (adresseControle(contact)) {
+        localStorage.setItem('contact', (valeursFormulaire))
+        document.getElementById('addressErrorMsg').textContent = "Champ Correct"
+        document.getElementById('addressErrorMsg').style.color = "white"
+    }
+    else {
+        document.getElementById('addressErrorMsg').textContent = "Veuillez bien remplir ce champ"
+        document.getElementById('addressErrorMsg').style.color = "darkred"
+    }
+    if (villeControle(contact)) {
+        localStorage.setItem('contact', (valeursFormulaire))
+        document.getElementById('cityErrorMsg').textContent = "Champ Correct"
+        document.getElementById('cityErrorMsg').style.color = "white"
+    }
+    else {
+        document.getElementById('cityErrorMsg').textContent = "Veuillez bien remplir ce champ"
+        document.getElementById('cityErrorMsg').style.color = "darkred"
+    }
+    if (emailControle(contact)) {
+        localStorage.setItem('contact', (valeursFormulaire))
+        document.getElementById('emailErrorMsg').textContent = "Champ Correct"
+        document.getElementById('emailErrorMsg').style.color = "white"
+    }
+    else {
+        document.getElementById('emailErrorMsg').textContent = "Veuillez bien remplir ce champ"
+        document.getElementById('emailErrorMsg').style.color = "darkred"
+    }
 })
 
 //Controle du prenom
@@ -163,8 +190,8 @@ const regExPrenom = (value) => {
 }
 
 function prenomControle(formData) {
-    const lePrenom = formData.prenom
-    if (regExPrenom(lePrenom)) {
+    const prenom = formData.prenom
+    if (regExPrenom(prenom)) {
         return true
     }
     else {
@@ -180,8 +207,8 @@ const regExNom = (value) => {
 }
 
 function nomControle(formData) {
-    const leNom = formData.nom
-    if (regExNom(leNom)) {
+    const nom = formData.nom
+    if (regExNom(nom)) {
         return true
     }
     else {
@@ -197,12 +224,12 @@ const regExEmail = (value) => {
 }
 
 function emailControle(formData) {
-    const leEmail = formData.email
-    if (regExEmail(leEmail)) {
+    const email = formData.email
+    if (regExEmail(email)) {
         return true
     }
     else {
-        alert("L'email n'est pas valide")
+        alert("Email non valide")
         return false
     }
 }
@@ -210,17 +237,35 @@ function emailControle(formData) {
 //Controle de l'adresse 
 
 const regExAdresse = (value) => {
-    return /^[A-Za-z0-9]$/.test(value)
+    return /^[a-zA-Z0-9\s,'-]*$/.test(value)
 
 }
 
 function adresseControle(formData) {
-    const leAdresse = formData.adresse
-    if (regExEmail(leAdresse)) {
+    const adresse = formData.adresse
+    if (regExAdresse(adresse)) {
         return true
     }
     else {
-        alert("L'adresse doit contenir que des lettres et des chiffres")
+        alert("Adresse non valide")
+        return false
+    }
+}
+
+//Controle de la ville
+
+const regExVille = (value) => {
+    return /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(value)
+
+}
+
+function villeControle(formData) {
+    const ville = formData.ville
+    if (regExVille(ville)) {
+        return true
+    }
+    else {
+        alert("La ville doit contenir que des lettres")
         return false
     }
 }
