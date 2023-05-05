@@ -116,88 +116,95 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
     e.preventDefault()
 
     const contact = {
-        prenom: document.querySelector("#firstName").value,
-        nom: document.querySelector("#lastName").value,
-        adresse: document.querySelector("#address").value,
-        ville: document.querySelector("#city").value,
+        firstName: document.querySelector("#firstName").value,
+        lastName: document.querySelector("#lastName").value,
+        address: document.querySelector("#address").value,
+        city: document.querySelector("#city").value,
         email: document.querySelector("#email").value,
     }
     const valeursFormulaire = {
-        produit: produitStorage,
-        utilisateur: contact,
+        products: ["107fb5b75607497b96722bda5b504926"],
+        contact: contact,
     }
 
-    //generates random id
+    // generates random id
 
-    let s4 = () => {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
+    // let s4 = () => {
+    //     return Math.floor((1 + Math.random()) * 0x10000)
+    //         .toString(16)
+    //         .substring(1);
+    // }
 
-    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+    // return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
 
-    let id = (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4())
-    console.log(id)
-    localStorage.setItem('idCommande', JSON.stringify(id))
-    alert("Votre commande a bien été enregistré")
-    window.location.href = "confirmation.html"
+    // let id = (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4())
+    // console.log(id)
+    // localStorage.setItem('idCommande', JSON.stringify(id))
+    // alert("Votre commande a bien été enregistré")
+    // window.location.href = "confirmation.html"
 
 
 
 
 
     //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
-
+        
     //Controle du texte
 
-        if (prenomControle(contact)) {
-            localStorage.setItem('contact', JSON.stringify(contact))
-            document.getElementById('firstNameErrorMsg').textContent = "Champ Correct"
-            document.getElementById('firstNameErrorMsg').style.color = "white"
-        }
-        else {
+        if (!prenomControle(contact)) {
             document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('firstNameErrorMsg').style.color = "darkred"
         }
-        if (nomControle(contact)) {
-            localStorage.setItem('contact', JSON.stringify(contact))
-            document.getElementById('lastNameErrorMsg').textContent = "Champ Correct"
-            document.getElementById('lastNameErrorMsg').style.color = "white"
-        }
-        else {
+        if (!nomControle(contact)) {
             document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('lastNameErrorMsg').style.color = "darkred"
         }
-        if (adresseControle(contact)) {
-            localStorage.setItem('contact', JSON.stringify(contact))
-            document.getElementById('addressErrorMsg').textContent = "Champ Correct"
-            document.getElementById('addressErrorMsg').style.color = "white"
-        }
-        else {
+        if (!adresseControle(contact)) {
             document.getElementById('addressErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('addressErrorMsg').style.color = "darkred"
         }
-        if (villeControle(contact)) {
-            localStorage.setItem('contact', JSON.stringify(contact))
-            document.getElementById('cityErrorMsg').textContent = "Champ Correct"
-            document.getElementById('cityErrorMsg').style.color = "white"
-        }
-        else {
+        if (!villeControle(contact)) {
             document.getElementById('cityErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('cityErrorMsg').style.color = "darkred"
         }
-        if (emailControle(contact)) {
-            localStorage.setItem('contact', JSON.stringify(contact))
-            document.getElementById('emailErrorMsg').textContent = "Champ Correct"
-            document.getElementById('emailErrorMsg').style.color = "white"
-        }
-        else {
+        if (!emailControle(contact)) {        
             document.getElementById('emailErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('emailErrorMsg').style.color = "darkred"
         }
+
+// Validation des champs du formulaire
+        if(prenomControle(contact) === true && nomControle(contact) === true && adresseControle(contact) === true && villeControle(contact)=== true && emailControle(contact) == true){
+            localStorage.setItem('contact', JSON.stringify(contact))
+            console.log("formulaire OK")
+            passOrder(valeursFormulaire).then((data) => {
+                console.log(data.orderId)
+            }
+            )
+        }
+        else{}
     })
 
+//API Order
+
+//const orderID = fetch("http://localhost:3000/api/products")
+const passOrder = async (order) => {
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(order)
+    };
+    try {
+        const fetchResponse = await fetch("http://localhost:3000/api/products/order", settings);
+        const data = await fetchResponse.json();
+        return data;
+    } catch (e) {
+        return e;
+    }    
+
+}
 //Controle du prenom
 
 const regExPrenom = (value) => {
@@ -205,7 +212,7 @@ const regExPrenom = (value) => {
 }
 
 function prenomControle(formData) {
-    const prenom = formData.prenom
+    const prenom = formData.firstName
     if (regExPrenom(prenom)) {
         return true
     }
@@ -222,7 +229,7 @@ const regExNom = (value) => {
 }
 
 function nomControle(formData) {
-    const nom = formData.nom
+    const nom = formData.lastName
     if (regExNom(nom)) {
         return true
     }
@@ -257,7 +264,7 @@ const regExAdresse = (value) => {
 }
 
 function adresseControle(formData) {
-    const adresse = formData.adresse
+    const adresse = formData.address
     if (regExAdresse(adresse)) {
         return true
     }
@@ -275,7 +282,7 @@ const regExVille = (value) => {
 }
 
 function villeControle(formData) {
-    const ville = formData.ville
+    const ville = formData.city
     if (regExVille(ville)) {
         return true
     }
