@@ -178,6 +178,8 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
             console.log("formulaire OK")
             passOrder(valeursFormulaire).then((data) => {
                 console.log(data.orderId)
+                alert("Votre commande a bien été enregistré")
+                window.location.href = "confirmation.html"
             }
             )
         }
