@@ -109,6 +109,14 @@ function updateQuantity(event) {
     localStorage.setItem("produit", JSON.stringify(produitStorage));
 }
 
+//Recuperation ID panier 
+
+let idPanier = []
+for (let p = 0; p < produitStorage.length; p++){
+    let idArticle = produitStorage[p].idDuProduit
+    console.log(idArticle)
+}
+
 //------------------------------------FORMULAIRE------------------------------------------>
 
 const btnEnvoieFormulaire = document.getElementById('order')
@@ -123,7 +131,7 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         email: document.querySelector("#email").value,
     }
     const valeursFormulaire = {
-        products: ["107fb5b75607497b96722bda5b504926"],
+        products: idPanier,
         contact: contact,
     }
 
@@ -177,8 +185,8 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
             localStorage.setItem('contact', JSON.stringify(contact))
             console.log("formulaire OK")
             passOrder(valeursFormulaire).then((data) => {
-                console.log(data.orderId)
                 alert("Votre commande a bien été enregistré")
+                localStorage.setItem('idCommande', JSON.stringify(data.orderId))
                 window.location.href = "confirmation.html"
             }
             )
