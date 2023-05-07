@@ -1,17 +1,16 @@
 fetch('http://localhost:3000/api/products')
     .then((Response) =>
         Response.json().then((data) => {
-            for(let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 let product = document.createElement('div');
-                product.innerHTML = '<a href="./product.html?id=' + data[i]._id +'">\
+                product.innerHTML = '<a href="./product.html?id=' + data[i]._id + '">\
                                         <article>\
-                                            <img src="' + data[i].imageUrl +'" alt="' + data[i].altTxt + '">\
-                                            <h3 class="productName">'+ data[i].name +'</h3>\
-                                            <p class="productDescription">'+ data[i].description +'</p>\
+                                            <img src="' + data[i].imageUrl + '" alt="' + data[i].altTxt + '">\
+                                            <h3 class="productName">'+ data[i].name + '</h3>\
+                                            <p class="productDescription">'+ data[i].description + '</p>\
                                         </article>\
-                                    </a>'        
+                                    </a>'
                 document.querySelector('#items').appendChild(product)
-            }           
+            }
         })
     );
-    
