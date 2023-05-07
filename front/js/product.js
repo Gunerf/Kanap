@@ -26,7 +26,8 @@ fetch('http://localhost:3000/api/products/'+id)
         productColor.appendChild(colorOption)
     }
 
-    // ------------------Ajout d'un item dans le panier
+    //------------------------------------Ajout d'un item dans le panier------------------------------>
+
 
     const addToCart = document.querySelector("#addToCart")
 
@@ -43,7 +44,7 @@ fetch('http://localhost:3000/api/products/'+id)
         nombreDeProduits: quantity.value,
     }
 
-    // ------------------Création popup erreur et ajout panier
+    //------------------------------------Création popup erreur et ajout panier------------------------------>
 
     const popupConfirmation = () =>{
         if(window.confirm(`${data.name} option: ${productColor.value} a bien été ajouté au panier

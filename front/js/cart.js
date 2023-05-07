@@ -62,15 +62,18 @@ for (let b = 0; b < produitStorage.length; b++) {
 const reducer = (accumulator, currentValue) => accumulator + currentValue
 const prixTotal = calculPrixTotal.reduce(reducer)
 
+
 //Affichage du prix de tous les articles
 
 let allPrice = document.querySelector("#totalPrice")
 allPrice.innerHTML = prixTotal
 
+
 //Affichage quantité de produit
 
 let allQuantity = document.querySelector("#totalQuantity")
 allQuantity.innerHTML = totalQuantity
+
 
 //--------------------------------Fleches plus et moins------------------------------------->
 
@@ -95,13 +98,14 @@ function updateQuantity(event) {
     }
     const reducer = (accumulator, currentValue) => accumulator + currentValue
     const prixTotal = calculPrixTotal.reduce(reducer)
+    
 
-    //Affichage du prix de tous les articles
+//Affichage du prix de tous les articles
 
     let allPrice = document.querySelector("#totalPrice")
     allPrice.innerHTML = prixTotal
 
-    //Affichage quantité de produit
+//Affichage quantité de produit
 
     let allQuantity = document.querySelector("#totalQuantity")
     allQuantity.innerHTML = totalQuantity
@@ -135,29 +139,9 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         contact: contact,
     }
 
-    // generates random id
-
-    // let s4 = () => {
-    //     return Math.floor((1 + Math.random()) * 0x10000)
-    //         .toString(16)
-    //         .substring(1);
-    // }
-
-    // return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
-
-    // let id = (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4())
-    // console.log(id)
-    // localStorage.setItem('idCommande', JSON.stringify(id))
-    // alert("Votre commande a bien été enregistré")
-    // window.location.href = "confirmation.html"
-
-
-
-
-
-    //-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
+//-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
         
-    //Controle du texte
+//Controle du texte
 
         if (!prenomControle(contact)) {
             document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
@@ -181,6 +165,7 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         }
 
 // Validation des champs du formulaire
+
         if(prenomControle(contact) === true && nomControle(contact) === true && adresseControle(contact) === true && villeControle(contact)=== true && emailControle(contact) == true){
             localStorage.setItem('contact', JSON.stringify(contact))
             console.log("formulaire OK")
@@ -196,7 +181,6 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
 
 //API Order
 
-//const orderID = fetch("http://localhost:3000/api/products")
 const passOrder = async (order) => {
     const settings = {
         method: 'POST',
