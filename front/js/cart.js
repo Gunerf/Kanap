@@ -70,20 +70,36 @@ for (let b = 0; b < produitStorage.length; b++) {
     totalQuantity += parseInt(ProductQuantity)
 }
 
+<<<<<<< HEAD
 const reducer = (accumulator, currentValue) => accumulator + currentValue
 const prixTotal = totalPrice.reduce(reducer)
 
 // Affichage du prix de tous les articles
+=======
+
+//Affichage du prix de tous les articles
+>>>>>>> origin
 
 let allPrice = document.querySelector("#totalPrice")
 allPrice.innerHTML = prixTotal
 
+<<<<<<< HEAD
 // Affichage quantité de produit
+=======
+
+//Affichage quantité de produit
+>>>>>>> origin
 
 let allQuantity = document.querySelector("#totalQuantity")
 allQuantity.innerHTML = totalQuantity
 
+<<<<<<< HEAD
 // Fleches plus et moins
+=======
+
+//--------------------------------Fleches plus et moins------------------------------------->
+
+>>>>>>> origin
 
 function updateQuantity(event) {
 
@@ -100,19 +116,33 @@ function updateQuantity(event) {
         totalPrice.push(ProductQuantity * ProductPrice)
         totalQuantity += parseInt(ProductQuantity)
     }
+<<<<<<< HEAD
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue
     const prixTotal = totalPrice.reduce(reducer)
+=======
+    const reducer = (accumulator, currentValue) => accumulator + currentValue
+    const prixTotal = calculPrixTotal.reduce(reducer)
+    
+
+//Affichage du prix de tous les articles
+>>>>>>> origin
 
     let allPrice = document.querySelector("#totalPrice")
     allPrice.innerHTML = prixTotal
 
+<<<<<<< HEAD
+=======
+//Affichage quantité de produit
+
+>>>>>>> origin
     let allQuantity = document.querySelector("#totalQuantity")
     allQuantity.innerHTML = totalQuantity
 
     localStorage.setItem("produit", JSON.stringify(produitStorage));
 }
 
+<<<<<<< HEAD
 //Récupération des ID des produits du panier 
 
 let idPanier = []
@@ -121,6 +151,17 @@ for (let p = 0; p < produitStorage.length; p++) {
 }
 
 // Formulaire
+=======
+//Recuperation ID panier 
+
+let idPanier = []
+for (let p = 0; p < produitStorage.length; p++){
+    let idArticle = produitStorage[p].idDuProduit
+    console.log(idArticle)
+}
+
+//------------------------------------FORMULAIRE------------------------------------------>
+>>>>>>> origin
 
 const btnEnvoieFormulaire = document.getElementById('order')
 btnEnvoieFormulaire.addEventListener("click", (e) => {
@@ -138,6 +179,7 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         contact: contact,
     }
 
+<<<<<<< HEAD
     // Validation du formulaire
 
     // Contrôle du prénom
@@ -238,14 +280,101 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
     if (!adresseControle(contact)) {
         document.getElementById('addressErrorMsg').textContent = "Veuillez bien remplir ce champ"
         document.getElementById('addressErrorMsg').style.color = "darkred"
+=======
+//-------------------------------------VALIDATION DU FORMULAIRE---------------------------------->
+        
+//Controle du texte
+
+        if (!prenomControle(contact)) {
+            document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('firstNameErrorMsg').style.color = "darkred"
+        }
+        if (!nomControle(contact)) {
+            document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('lastNameErrorMsg').style.color = "darkred"
+        }
+        if (!adresseControle(contact)) {
+            document.getElementById('addressErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('addressErrorMsg').style.color = "darkred"
+        }
+        if (!villeControle(contact)) {
+            document.getElementById('cityErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('cityErrorMsg').style.color = "darkred"
+        }
+        if (!emailControle(contact)) {        
+            document.getElementById('emailErrorMsg').textContent = "Veuillez bien remplir ce champ"
+            document.getElementById('emailErrorMsg').style.color = "darkred"
+        }
+
+// Validation des champs du formulaire
+
+        if(prenomControle(contact) === true && nomControle(contact) === true && adresseControle(contact) === true && villeControle(contact)=== true && emailControle(contact) == true){
+            localStorage.setItem('contact', JSON.stringify(contact))
+            console.log("formulaire OK")
+            passOrder(valeursFormulaire).then((data) => {
+                alert("Votre commande a bien été enregistré")
+                localStorage.setItem('idCommande', JSON.stringify(data.orderId))
+                window.location.href = "confirmation.html"
+            }
+            )
+        }
+        else{}
+    })
+
+//API Order
+
+const passOrder = async (order) => {
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(order)
+    };
+    try {
+        const fetchResponse = await fetch("http://localhost:3000/api/products/order", settings);
+        const data = await fetchResponse.json();
+        return data;
+    } catch (e) {
+        return e;
+    }    
+
+}
+//Controle du prenom
+
+const regExPrenom = (value) => {
+    return /^[A-Z][A-Za-z\é\è\ê\-]+$/.test(value)
+}
+
+function prenomControle(formData) {
+    const prenom = formData.firstName
+    if (regExPrenom(prenom)) {
+        return true
+>>>>>>> origin
     }
     if (!villeControle(contact)) {
         document.getElementById('cityErrorMsg').textContent = "Veuillez bien remplir ce champ"
         document.getElementById('cityErrorMsg').style.color = "darkred"
     }
+<<<<<<< HEAD
     if (!emailControle(contact)) {
         document.getElementById('emailErrorMsg').textContent = "Veuillez bien remplir ce champ"
         document.getElementById('emailErrorMsg').style.color = "darkred"
+=======
+}
+
+//Controle du nom
+
+const regExNom = (value) => {
+    return /^[A-Z][A-Za-z\é\è\ê\-]+$/.test(value)
+}
+
+function nomControle(formData) {
+    const nom = formData.lastName
+    if (regExNom(nom)) {
+        return true
+>>>>>>> origin
     }
 
     // Validation des champs du formulaire
@@ -259,6 +388,7 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         })
     }
 
+<<<<<<< HEAD
     // API order
 
     const passOrder = async (order) => {
@@ -279,3 +409,57 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
         }
     }
 })
+=======
+//Controle de l'email
+
+const regExEmail = (value) => {
+    return /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(value)
+}
+
+function emailControle(formData) {
+    const email = formData.email
+    if (regExEmail(email)) {
+        return true
+    }
+    else {
+        alert("Email non valide")
+        return false
+    }
+}
+
+//Controle de l'adresse 
+
+const regExAdresse = (value) => {
+    return /^[a-zA-Z0-9\s,'-]*$/.test(value)
+
+}
+
+function adresseControle(formData) {
+    const adresse = formData.address
+    if (regExAdresse(adresse)) {
+        return true
+    }
+    else {
+        alert("Adresse non valide")
+        return false
+    }
+}
+
+//Controle de la ville
+
+const regExVille = (value) => {
+    return /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(value)
+
+}
+
+function villeControle(formData) {
+    const ville = formData.city
+    if (regExVille(ville)) {
+        return true
+    }
+    else {
+        alert("La ville doit contenir que des lettres")
+        return false
+    }
+}
+>>>>>>> origin

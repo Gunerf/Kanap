@@ -12,20 +12,60 @@ fetch('http://localhost:3000/api/products/' + id)
             let productTitle = document.querySelector('#title');
             productTitle.innerHTML = data.name
 
+<<<<<<< HEAD
             let productPrice = document.querySelector('#price');
             productPrice.innerHTML = data.price
+=======
+    let productDescription = document.querySelector('#description')
+    productDescription.innerHTML = data.description
+    
+    let productColor = document.querySelector('#colors')
+    for(let i = 0; i < data.colors.length; i++){
+        let colorOption = document.createElement('option')
+        colorOption.innerHTML = data.colors[i]
+        colorOption.value = data.colors[i]
+        productColor.appendChild(colorOption)
+    }
+
+    //------------------------------------Ajout d'un item dans le panier------------------------------>
+
+
+    const addToCart = document.querySelector("#addToCart")
+>>>>>>> origin
 
             let productDescription = document.querySelector('#description')
             productDescription.innerHTML = data.description
 
+<<<<<<< HEAD
             let productColor = document.querySelector('#colors')
             for (let i = 0; i < data.colors.length; i++) {
                 let colorOption = document.createElement('option')
                 colorOption.innerHTML = data.colors[i]
                 colorOption.value = data.colors[i]
                 productColor.appendChild(colorOption)
+=======
+    //------------------------------------Création popup erreur et ajout panier------------------------------>
+
+    const popupConfirmation = () =>{
+        if(window.confirm(`${data.name} option: ${productColor.value} a bien été ajouté au panier
+        Consultez le panier OK ou revenir à l'accueil ANNULER`)){
+        window.location.href = "cart.html";           
+        }
+        else{
+            window.location.href = "index.html";
+        }
+    }
+    const popupError = () =>{
+        if(productColor.value.length === 0 && (quantity.value < 1 || quantity.value > 100)){
+            alert("Veuillez sélectionner une couleur et une quantité entre 1 et 100")
+        }
+        else{
+            if(productColor.value.length === 0){
+                alert("Veuillez sélectionner une couleur")
+>>>>>>> origin
             }
 
+<<<<<<< HEAD
             // Ajout d'un item dans le panier
 
             const addToCart = document.querySelector("#addToCart")
@@ -96,3 +136,32 @@ fetch('http://localhost:3000/api/products/' + id)
                 }
             })
         }))
+=======
+    let produitPanier = JSON.parse(localStorage.getItem("produit"));
+
+    if(productColor.value.length === 0 || (quantity.value < 1 || quantity.value > 100)){
+        popupError()
+    }
+    else{
+        if(produitPanier){ 
+        let productIndex = produitPanier.findIndex(product => product.idDuProduit == data._id && product.couleurProduit === productColor.value)
+        if(produitPanier[productIndex] && produitPanier[productIndex].couleurProduit === productColor.value){
+                produitPanier[productIndex].nombreDeProduits += quantity.value
+        }
+        else {
+            produitPanier.push(optionProduit); 
+        }       
+        localStorage.setItem("produit", JSON.stringify(produitPanier));
+        popupConfirmation()
+        }
+        else {
+            produitPanier = [];
+            produitPanier.push(optionProduit);
+            localStorage.setItem("produit", JSON.stringify(produitPanier));
+            popupConfirmation()
+        }
+    }
+    })
+    }))
+   
+>>>>>>> origin
