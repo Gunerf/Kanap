@@ -119,8 +119,9 @@ let idPanier = []
 for (let p = 0; p < produitStorage.length; p++){
     let idArticle = produitStorage[p].idDuProduit
     console.log(idArticle)
+    idPanier.push(idArticle)
 }
-
+console.log(idPanier)
 //------------------------------------FORMULAIRE------------------------------------------>
 
 const btnEnvoieFormulaire = document.getElementById('order')
@@ -147,21 +148,36 @@ btnEnvoieFormulaire.addEventListener("click", (e) => {
             document.getElementById('firstNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('firstNameErrorMsg').style.color = "darkred"
         }
+        else{
+            document.getElementById('firstNameErrorMsg').textContent = ""
+        }
         if (!nomControle(contact)) {
             document.getElementById('lastNameErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('lastNameErrorMsg').style.color = "darkred"
+        }
+        else{
+            document.getElementById('lastNameErrorMsg').textContent = ""
         }
         if (!adresseControle(contact)) {
             document.getElementById('addressErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('addressErrorMsg').style.color = "darkred"
         }
+        else{
+            document.getElementById('addressErrorMsg').textContent = ""
+        }
         if (!villeControle(contact)) {
             document.getElementById('cityErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('cityErrorMsg').style.color = "darkred"
         }
+        else{
+            document.getElementById('cityErrorMsg').textContent = ""
+        }
         if (!emailControle(contact)) {        
             document.getElementById('emailErrorMsg').textContent = "Veuillez bien remplir ce champ"
             document.getElementById('emailErrorMsg').style.color = "darkred"
+        }
+        else{
+            document.getElementById('emailErrorMsg').textContent = ""
         }
 
 // Validation des champs du formulaire
@@ -211,7 +227,6 @@ function prenomControle(formData) {
         return true
     }
     else {
-        alert("Le prenom n'est pas valide")
         return false
     }
 }
@@ -228,7 +243,6 @@ function nomControle(formData) {
         return true
     }
     else {
-        alert("Le nom n'est pas valide")
         return false
     }
 }
@@ -245,7 +259,6 @@ function emailControle(formData) {
         return true
     }
     else {
-        alert("Email non valide")
         return false
     }
 }
@@ -263,7 +276,6 @@ function adresseControle(formData) {
         return true
     }
     else {
-        alert("Adresse non valide")
         return false
     }
 }
@@ -281,7 +293,6 @@ function villeControle(formData) {
         return true
     }
     else {
-        alert("La ville doit contenir que des lettres")
         return false
     }
 }
